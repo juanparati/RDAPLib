@@ -1,0 +1,13 @@
+language: php
+php:
+  - '7.1'
+  - '7.2'
+  - nightly
+addons:
+  apt:
+    packages:
+      - libonig-dev
+before_script:
+  composer update
+script:
+  phpunit --coverage-text
