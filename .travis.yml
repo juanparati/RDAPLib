@@ -10,4 +10,4 @@ addons:
 before_script:
   composer update
 script:
-  phpunit --coverage-text
+  ./vendor/bin/phpunit --coverage-text
