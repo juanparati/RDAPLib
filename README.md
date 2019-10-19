@@ -4,7 +4,7 @@
 
 RDAPLib is a Registration Data Access Protocol (RDAP) client library that query and resolve results into models, arrays or standard objects (stdObject).
 
-This library uses [Guzzle](http://docs.guzzlephp.org/en/stable/) as default http client, however is possible to use inject any custom HTTP client that is compliant with [PSR-18](https://www.php-fig.org/psr/psr-18/). 
+This library uses [Guzzle](http://docs.guzzlephp.org/en/stable/) as default http client, however is possible to inject any custom HTTP client that is compliant with [PSR-18](https://www.php-fig.org/psr/psr-18/). 
 
 
 ## Usage
