@@ -1,3 +1,5 @@
+![](https://api.travis-ci.com/juanparati/RDAPLib.svg?branch=master)
+
 # RDAPLib
 
 ## About
