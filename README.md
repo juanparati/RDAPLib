@@ -63,7 +63,7 @@ The link model has another method that can generate HTML links:
     $domain = $rdap->domainLookup('google.com');
     echo $rdap->links[0]->asLink();
  
-It's possible to replace the current models with your own custome models. In order achieve it a custom ModelMapper is required.
+It's possible to replace the current models with your own custome models. In order achieve that a custom ModelMapper is required.
 
 Example:
 
@@ -83,7 +83,7 @@ Example:
         'ipAddresses'  => \Juanparati\RDAPLib\Models\IpAddressModel::class,            
     ]);
     
-    // 3. Instantiate the client passing injecting the mapper
+    // 3. Instantiate the client injecting our custom mapper
     $rdap = new \Juanparati\RDAPLib\RDAPClient([], null, null, $mapper);
     
 
