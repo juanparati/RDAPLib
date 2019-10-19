@@ -29,7 +29,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Juanparati\\RDAPLib\\Tests\\": "tests/test/"
+            "Juanparati\\RDAPLib\\Tests\\": "tests/Test/"
         }
     }
 }
