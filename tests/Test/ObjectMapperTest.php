@@ -4,13 +4,17 @@
 namespace Juanparati\RDAPLib\Tests;
 
 use Juanparati\RDAPLib\ModelMapper;
+use Juanparati\RDAPLib\Models\DomainModel;
 use Juanparati\RDAPLib\Models\EntityModel;
+use Juanparati\RDAPLib\Models\EventModel;
 use Juanparati\RDAPLib\Models\IpNetworkModel;
 use Juanparati\RDAPLib\Models\LinkModel;
+use Juanparati\RDAPLib\Models\NameserverModel;
 use Juanparati\RDAPLib\Models\NoticeModel;
 use Juanparati\RDAPLib\Models\VCardArrayModel;
 use Juanparati\RDAPLib\Tests\Extra\MyIpNetworkModel;
 
+use phpDocumentor\Reflection\DocBlock\Tags\Link;
 use PHPUnit\Framework\TestCase;
 
 
@@ -23,9 +27,9 @@ class ObjectMapperTest extends TestCase
 {
 
     /**
-     * Test against IPNetwork format.
+     * Test IPNetwork model.
      */
-    public function testIPFormat()
+    public function testIPModel()
     {
         $data = file_get_contents(__DIR__ . '/../Resources/ip1.json');
         $data = json_decode($data, true);
@@ -80,5 +84,28 @@ class ObjectMapperTest extends TestCase
 
         $this->assertTrue($object instanceof MyIpNetworkModel);
         $this->assertContains('v4', $object->test());
+    }
+
+
+    /**
+     * Test Domain model.
+     */
+    public function testDomainModel()
+    {
+        $data = file_get_contents(__DIR__ . '/../Resources/domain.json');
+        $data = json_decode($data, true);
+
+        $mapper = (new ModelMapper())->getObjectMapper();
+        $object = $mapper->map($data, DomainModel::class);
+
+        $this->assertTrue($object instanceof DomainModel);
+        $this->assertContains('GOOGLE.COM', $object->ldhName);
+        $this->assertCount(2, $object->links);
+        $this->assertTrue($object->entities[0]->vcardArray->parseCard() instanceof \Sabre\VObject\Component\VCard);
+        $this->assertTrue($object->events[2] instanceof EventModel);
+        $this->assertContains('registration', $object->events[0]->eventAction);
+        $this->assertTrue($object->nameservers[0] instanceof NameserverModel);
+        $this->assertContains('NS4.GOOGLE.COM', $object->nameservers[3]->ldhName);
+        $this->assertTrue($object->notices[0]->links[0] instanceof LinkModel);
     }
 }
