@@ -11,7 +11,7 @@ use Juanparati\RDAPLib\Models\IpNetworkModel;
  *
  * Test class used for test the model replacement.
  *
- * @package Juanparati\RDAPLib\Tests\Test\Extra
+ * @package Juanparati\RDAPLib\Tests\Extra
  */
 class MyIpNetworkModel extends IpNetworkModel
 {

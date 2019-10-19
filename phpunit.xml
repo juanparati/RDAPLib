@@ -9,6 +9,11 @@
          processIsolation="false"
          stopOnFailure="true"
 >
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
     <testsuites>
         <testsuite name="all">
             <directory>tests/Test/</directory>
