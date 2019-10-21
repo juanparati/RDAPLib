@@ -119,3 +119,11 @@ Example:
         $myCompatiblePSR18HTTPClient,
         $myCompatiblePSR7MessageInterface
      );
+
+
+## Supporters
+- [superkredit.net](https://superkredit.net/)
+- [fair-laan.se](https://fair-laan.se/)
+- [fair-laan.dk](https://fair-laan.dk/)
+- [matchbanker.fi](https://matchbanker.fi/)
+- [mamuph.org](http://mamuph.org)
