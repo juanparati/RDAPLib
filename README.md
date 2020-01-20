@@ -38,10 +38,10 @@ Example:
 
      $rdap = new \Juanparati\RDAPLib\RDAPClient();
         
-     $ip       = $rdap->ipLookup('94.234.38.5', \Juanparati\RDAPLib\RDAPClient\RAW_OUTPUT);    
-     $domain    = $rdap->domainLookup('google.com', \Juanparati\RDAPLib\RDAPClient\ARRAY_OUTPUT);
-     $tld       = $rdap->tldLookup('io', \Juanparati\RDAPLib\RDAPClient\OBJECT_OUTPUT);
-     $entity    = $rdap->entityLookup('APL7-ARIN')   // Default output is MODEL_OUTPUT
+     $ip     = $rdap->ipLookup('94.234.38.5', \Juanparati\RDAPLib\RDAPClient\RAW_OUTPUT);    
+     $domain = $rdap->domainLookup('google.com', \Juanparati\RDAPLib\RDAPClient\ARRAY_OUTPUT);
+     $tld    = $rdap->tldLookup('io', \Juanparati\RDAPLib\RDAPClient\OBJECT_OUTPUT);
+     $entity = $rdap->entityLookup('APL7-ARIN')   // Default output is MODEL_OUTPUT
     
 
 ### Model format
@@ -65,7 +65,7 @@ The link model has another method that can generate HTML links:
     $domain = $rdap->domainLookup('google.com');
     echo $rdap->links[0]->asLink();
  
-It's possible to replace the current models with your own custome models. In order achieve that a custom ModelMapper is required.
+It's possible to replace the current models with your own custom models. In order achieve that a custom ModelMapper is required.
 
 Example:
 

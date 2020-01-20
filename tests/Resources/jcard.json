@@ -1,0 +1,85 @@
+[
+  [
+    "version",
+    {},
+    "text",
+    "4.0"
+  ],
+  [
+    "adr",
+    {
+      "label": "Line1.\nLine2\nSpain"
+    },
+    "text",
+    [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  ],
+  [
+    "fn",
+    {},
+    "text",
+    "ADMIN TEST"
+  ],
+  [
+    "org",
+    {},
+    "text",
+    "ADMIN TEST2"
+  ],
+  [
+    "kind",
+    {},
+    "text",
+    "group"
+  ],
+  [
+    "email",
+    {},
+    "text",
+    "test0@example.net"
+  ],
+  [
+    "email",
+    {},
+    "text",
+    "test1@example.net"
+  ],
+  [
+    "email",
+    {},
+    "text",
+    "test2@example.net"
+  ],
+  [
+    "email",
+    {
+      "type": "email"
+    },
+    "text",
+    "test3@example.net"
+  ],
+  [
+    "email",
+    {},
+    "text",
+    "test5@example.net"
+  ],
+  [
+    "tel",
+    {
+      "type": [
+        "work",
+        "voice"
+      ]
+    },
+    "text",
+    "+1-877-453-8888"
+  ]
+]

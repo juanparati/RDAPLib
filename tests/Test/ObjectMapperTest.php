@@ -7,6 +7,7 @@ use Juanparati\RDAPLib\ModelMapper;
 use Juanparati\RDAPLib\Models\DomainModel;
 use Juanparati\RDAPLib\Models\EntityModel;
 use Juanparati\RDAPLib\Models\EventModel;
+use Juanparati\RDAPLib\Models\Helpers\CardModel;
 use Juanparati\RDAPLib\Models\IpNetworkModel;
 use Juanparati\RDAPLib\Models\LinkModel;
 use Juanparati\RDAPLib\Models\NameserverModel;
@@ -48,7 +49,11 @@ class ObjectMapperTest extends TestCase
         }
 
         $this->assertObjectHasAttribute('vcardArray', $object->entities[4]);
-        $this->assertTrue($object->entities[4]->vcardArray->parseCard() instanceof \Sabre\VObject\Component\VCard);
+
+        $card = $object->entities[4]->vcardArray->parseCard();
+
+        $this->assertTrue($card instanceof CardModel);
+        $this->assertTrue($card->version === '4.0');
 
         $this->assertTrue($object->entities[4]->vcardArray instanceof VCardArrayModel);
         $this->assertTrue($object->entities[4]->entities[1] instanceof EntityModel);
@@ -101,7 +106,7 @@ class ObjectMapperTest extends TestCase
         $this->assertTrue($object instanceof DomainModel);
         $this->assertContains('GOOGLE.COM', $object->ldhName);
         $this->assertCount(2, $object->links);
-        $this->assertTrue($object->entities[0]->vcardArray->parseCard() instanceof \Sabre\VObject\Component\VCard);
+        $this->assertTrue($object->entities[0]->vcardArray->parseCard() instanceof CardModel);
         $this->assertTrue($object->events[2] instanceof EventModel);
         $this->assertContains('registration', $object->events[0]->eventAction);
         $this->assertTrue($object->nameservers[0] instanceof NameserverModel);

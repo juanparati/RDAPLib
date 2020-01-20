@@ -4,10 +4,12 @@
 namespace Juanparati\RDAPLib\Models;
 
 
-use Sabre\VObject;
+use Juanparati\RDAPLib\Helpers\RdapJCardParser;
+use Juanparati\RDAPLib\Models\Helpers\CardModel;
+
 
 /**
- * Class RemarkModel.
+ * Class VCardArrayModel.
  *
  * @see https://tools.ietf.org/html/rfc7483#page-11
  * @package Juanparati\RDAPLib\Models
@@ -19,10 +21,10 @@ class VCardArrayModel
     /**
      * Parse and return vCard information.
      *
-     * @return VObject\Document
+     * @return CardModel
      */
-    public function parseCard()
+    public function parseCard() : ?CardModel
     {
-        return VObject\Reader::readJson($this->data);
+        return isset($this->data[1]) ? RdapJCardParser::parse($this->data[1]) : null;
     }
 }
