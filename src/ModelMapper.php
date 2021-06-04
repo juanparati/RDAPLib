@@ -82,7 +82,7 @@ class ModelMapper
      *
      * @var ObjectMapper
      */
-    protected $objectMapper;
+    protected ObjectMapper $objectMapper;
 
 
     /**
