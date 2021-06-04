@@ -61,7 +61,7 @@ class RDAPClient
     protected $serviceCatalog =
     [
         'ip'        => 'https://rdap.db.ripe.net/ip/',
-        'domain'    => 'https://rdap.org/domain/',
+        'domain'    => 'https://rdap.verisign.com/com/v1/domain/',
         'tld'       => 'https://root.rdap.org/domain/',
         'autnum'    => 'https://rdap.db.ripe.net/autnum/',
         'entity'    => 'https://rdap.arin.net/registry/entity/',
@@ -246,6 +246,9 @@ class RDAPClient
 
         if ($status === 400)
             throw new RDAPWrongRequest('Check the TLD or IP format: ' . $url, 400);
+
+        if (301 === $status || 302 === $status)
+            return $this->performRequest($result->getHeaderLine('Location'));
 
         if ($status !== 200)
             throw new RDAPWrongRequest($result->getReasonPhrase(), $status);
