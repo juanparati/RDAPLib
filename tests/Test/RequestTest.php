@@ -25,13 +25,13 @@ class RequestTest extends TestCase
      *
      * @var RDAPClient
      */
-    protected static $client;
+    protected static RDAPClient $client;
 
 
     /**
      * @Fixture
      */
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass() : void
     {
         static::$client = new RDAPClient();
     }
@@ -108,7 +108,7 @@ class RequestTest extends TestCase
         $data = static::$client->entityLookup('APL7-ARIN');
 
         $this->assertTrue($data instanceof EntityModel);
-        $this->assertContains($data->objectClassName, 'entity');
+        $this->assertContains($data->objectClassName, ['entity']);
     }
 
 
@@ -123,6 +123,6 @@ class RequestTest extends TestCase
         $data = static::$client->registrarLookup(1);
 
         $this->assertTrue($data instanceof EntityModel);
-        $this->assertContains($data->objectClassName, 'entity');
+        $this->assertContains($data->objectClassName, ['entity']);
     }
 }

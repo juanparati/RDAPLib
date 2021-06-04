@@ -8,6 +8,14 @@ RDAPLib is a Registration Data Access Protocol (RDAP) client library that query 
 
 This library uses [Guzzle](http://docs.guzzlephp.org/en/stable/) as default http client, however is possible to inject any custom HTTP client that is compliant with [PSR-18](https://www.php-fig.org/psr/psr-18/). 
 
+## Installation
+
+    composer require juanparati/rdap-lib "^2.0"
+
+You may also require Guzzle 7 in case that you don't want to inject PSR-18 compliant client:
+
+    composer require guzzlehttp/guzzle "^7.0.1"
+
 
 ## Usage
 
@@ -116,8 +124,8 @@ Example:
 
      $rdap = new \Juanparati\RDAPLib\RDAPClient(
         [],
-        $myCompatiblePSR18HTTPClient,
-        $myCompatiblePSR7MessageInterface
+        $myCompatiblePSR18HTTPClient,       // Psr\Http\Client\ClientInterface
+        $myCompatiblePSR7MessageInterface   // Psr\Http\Message\RequestFactoryInterface
      );
 
 

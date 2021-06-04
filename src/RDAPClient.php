@@ -3,13 +3,11 @@
 
 namespace Juanparati\RDAPLib;
 
-
-use Juanparati\RDAPLib\Adaptors\GuzzleRequestFactory;
 use Juanparati\RDAPLib\Exceptions\RDAPWrongRequest;
+use Juanparati\RDAPLib\Helpers\Decoder;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
-use RicardoFiorani\GuzzlePsr18Adapter\Client;
 
 
 /**
@@ -34,7 +32,7 @@ class RDAPClient
      *
      * @var ClientInterface
      */
-    protected $httpClient;
+    protected ClientInterface $httpClient;
 
 
     /**
@@ -42,7 +40,7 @@ class RDAPClient
      *
      * @var RequestFactoryInterface
      */
-    protected $requestFactory;
+    protected RequestFactoryInterface $requestFactory;
 
 
     /**
@@ -50,7 +48,7 @@ class RDAPClient
      *
      * @var ModelMapper
      */
-    protected $mapper;
+    protected ModelMapper $mapper;
 
 
     /**
@@ -61,7 +59,7 @@ class RDAPClient
     protected $serviceCatalog =
     [
         'ip'        => 'https://rdap.db.ripe.net/ip/',
-        'domain'    => 'https://rdap.org/domain/',
+        'domain'    => 'https://rdap.verisign.com/com/v1/domain/',
         'tld'       => 'https://root.rdap.org/domain/',
         'autnum'    => 'https://rdap.db.ripe.net/autnum/',
         'entity'    => 'https://rdap.arin.net/registry/entity/',
@@ -72,20 +70,26 @@ class RDAPClient
     /**
      * RDAPClient constructor.
      *
-     * @param array $serviceCatalog
      * @param ClientInterface|null $httpClient
      * @param RequestFactoryInterface|null $requestFactory
+     * @param array $serviceCatalog
      * @param ModelMapper|null $mapper
      */
     public function __construct(
         array $serviceCatalog                    = [],
-        ?ClientInterface $httpClient             = null,
-        ?RequestFactoryInterface $requestFactory = null,
-        ?ModelMapper $mapper                     = null
+        ClientInterface $httpClient              = null,
+        RequestFactoryInterface $requestFactory  = null,
+        ModelMapper $mapper                      = null
     )
     {
-        $this->httpClient      = $httpClient     ?: new Client();
-        $this->requestFactory  = $requestFactory ?: new GuzzleRequestFactory();
+        if (!$httpClient && class_exists('\GuzzleHttp\Client'))
+            $httpClient = new \GuzzleHttp\Client();
+
+        if (!$requestFactory)
+            $requestFactory = new \Juanparati\RDAPLib\Adaptors\GuzzleRequestFactory();
+
+        $this->httpClient      = $httpClient;
+        $this->requestFactory  = $requestFactory;
         $this->serviceCatalog  = array_merge($this->serviceCatalog, $serviceCatalog);
         $this->mapper          = $mapper ?: new ModelMapper();
     }
@@ -213,16 +217,16 @@ class RDAPClient
                 break;
 
             case static::ARRAY_OUTPUT:
-                return \GuzzleHttp\json_decode($data, true);
+                return Decoder::json($data, true);
                 break;
 
             case static::OBJECT_OUTPUT:
-                return \GuzzleHttp\json_decode($data);
+                return Decoder::json($data);
                 break;
         }
 
 
-        return $this->mapper->getObjectMapper()->map(\GuzzleHttp\json_decode($data, true), $model);
+        return $this->mapper->getObjectMapper()->map(Decoder::json($data, true), $model);
     }
 
 
@@ -241,11 +245,14 @@ class RDAPClient
 
         $status = $result->getStatusCode();
 
-        if ($status === 404)
+        if (404 === $status)
             return null;
 
-        if ($status === 400)
+        if (400 === $status)
             throw new RDAPWrongRequest('Check the TLD or IP format: ' . $url, 400);
+
+        if (301 === $status || 302 === $status)
+            return $this->performRequest($result->getHeaderLine('Location'));
 
         if ($status !== 200)
             throw new RDAPWrongRequest($result->getReasonPhrase(), $status);

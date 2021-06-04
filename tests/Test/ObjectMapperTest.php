@@ -39,7 +39,7 @@ class ObjectMapperTest extends TestCase
         $object = $mapper->map($data, IpNetworkModel::class);
 
         $this->assertTrue($object instanceof IpNetworkModel);
-        $this->assertContains($object->name, 'SE-EUROPOLITAN-2008TEST');
+        $this->assertContains($object->name, ['SE-EUROPOLITAN-2008TEST']);
         $this->assertCount(5, $object->entities);
 
         foreach ($object->entities as $entity)
@@ -88,7 +88,7 @@ class ObjectMapperTest extends TestCase
         $object = $mapper->getObjectMapper()->map($data, MyIpNetworkModel::class);
 
         $this->assertTrue($object instanceof MyIpNetworkModel);
-        $this->assertContains('v4', $object->test());
+        $this->assertContains('v4', [$object->test()]);
     }
 
 
@@ -104,13 +104,13 @@ class ObjectMapperTest extends TestCase
         $object = $mapper->map($data, DomainModel::class);
 
         $this->assertTrue($object instanceof DomainModel);
-        $this->assertContains('GOOGLE.COM', $object->ldhName);
+        $this->assertContains('GOOGLE.COM', [$object->ldhName]);
         $this->assertCount(2, $object->links);
         $this->assertTrue($object->entities[0]->vcardArray->parseCard() instanceof CardModel);
         $this->assertTrue($object->events[2] instanceof EventModel);
-        $this->assertContains('registration', $object->events[0]->eventAction);
+        $this->assertContains('registration', [$object->events[0]->eventAction]);
         $this->assertTrue($object->nameservers[0] instanceof NameserverModel);
-        $this->assertContains('NS4.GOOGLE.COM', $object->nameservers[3]->ldhName);
+        $this->assertContains('NS4.GOOGLE.COM', [$object->nameservers[3]->ldhName]);
         $this->assertTrue($object->notices[0]->links[0] instanceof LinkModel);
     }
 }

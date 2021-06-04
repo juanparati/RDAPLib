@@ -8,15 +8,17 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="true"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
 >
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">src</directory>
-        </whitelist>
-    </filter>
+    <coverage>
+        <include>
+            <directory suffix=".php">src/</directory>
+        </include>
+    </coverage>
     <testsuites>
-        <testsuite name="all">
-            <directory>tests/Test/</directory>
+        <testsuite name="Unit">
+            <directory suffix="Test.php">./tests/Test</directory>
         </testsuite>
     </testsuites>
 </phpunit>
