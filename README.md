@@ -2,6 +2,8 @@
 
 # RDAPLib
 
+For Guzzle 6.x compatible see [Branch 1.x](https://github.com/juanparati/RDAPLib/tree/1.0)
+
 ## About
 
 RDAPLib is a Registration Data Access Protocol (RDAP) client library that query and resolve results into models, arrays or standard objects (stdObject).

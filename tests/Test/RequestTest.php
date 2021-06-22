@@ -46,7 +46,7 @@ class RequestTest extends TestCase
      */
     public function testIpLookup()
     {
-        $data = static::$client->ipLookup('94.234.38.5');
+        $data = static::$client->ipLookup('187.105.156.58');
 
         $this->assertTrue($data instanceof IpNetworkModel);
     }

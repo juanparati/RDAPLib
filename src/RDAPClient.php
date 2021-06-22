@@ -251,7 +251,7 @@ class RDAPClient
         if (400 === $status)
             throw new RDAPWrongRequest('Check the TLD or IP format: ' . $url, 400);
 
-        if (301 === $status || 302 === $status)
+        if ('3' === ((string) $status)[0])
             return $this->performRequest($result->getHeaderLine('Location'));
 
         if ($status !== 200)
